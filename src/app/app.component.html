@@ -1,4 +1,134 @@
-<hello name="{{ name }}"></hello>
-<p>
-  Start editing to see some magic happen :)
-</p>
+<h2>Candidates</h2>
+<div class="checkbox">
+  <label>
+    <input
+      #saveUserNameCheckBox
+      id="saveUserNameCheckBox"
+      type="checkbox"
+      [checked]="saveUsername"
+      (change)="onSaveUsernameChanged(saveUserNameCheckBox.checked)"
+    />
+    Male
+  </label>
+  <label>
+    <input
+      #saveFemaleCheckBox
+      id="saveFemaleCheckBox"
+      type="checkbox"
+      [checked]="saveFemale"
+      (change)="onSaveFemaleChanged(saveFemaleCheckBox.checked)"
+    />
+    Female
+  </label>
+  &nbsp;
+  <input
+    type="text"
+    [(ngModel)]="email"
+    placeholder="Whom are you looking for ?     "
+  />
+</div>
+<br />
+<br />
+<table border="1" width="100%" stlye="margin-top:2%">
+  <tr>
+    <th>#</th>
+    <th>First Name</th>
+    <th>Last name</th>
+    <th>Email</th>
+    <th>Gender</th>
+  </tr>
+  <tr
+    *ngFor="let customer of users | customerEmailFilter: email; let i = index"
+  >
+    <td>{{ customer.id }}</td>
+    <td>{{ customer.first_name }}</td>
+    <td>{{ customer.last_name }}</td>
+    <td>{{ customer.emailId }}</td>
+    <td>{{ customer.gender }}</td>
+  </tr>
+</table>
+
+<hr />
+<style>
+  .no-style .ng-valid {
+  border-left: 1px  solid #CCC
+  }
+
+  .no-style .ng-invalid {
+  border-left: 1px  solid #CCC
+  }
+</style>
+<div style="margin-left: 4px">
+  <div class="container">
+    <h2>Add New Candidate</h2>
+    <form novalidate #formRef="ngForm" (ngSubmit)="onSubmit(formRef.value)">
+      <div class="row">
+        <div class="form-group">
+          <div class="col-sm-6">
+            <label for="name"> First Name</label>&nbsp;
+            <input
+              type="text"
+              class="form-control"
+              name="first_name"
+              ngModel
+              #first_name="ngModel"
+            />
+          </div>
+        </div>
+        <br />
+        <div class="col-sm-6 form-group">
+          <label for="name"> Last Name</label>&nbsp;&nbsp;
+          <input
+            type="text"
+            class="form-control"
+            name="last_name"
+            ngModel
+            #last_name="ngModel"
+          />
+        </div>
+      </div>
+      <br />
+      <div class="row">
+        <div class="col-sm-6 form-group">
+          <label for="name"> Email</label>&nbsp;&nbsp;
+          <input
+            type="text"
+            class="form-control"
+            style="margin-left: 34px"
+            name="emailId"
+            ngModel
+            #emailId="ngModel"
+          />
+        </div>
+        <br />
+        <div class="col-sm-6 form-group" style="margin-left: 80px">
+          <input
+            id="male"
+            type="radio"
+            class="custom-control-input"
+            value="Male"
+            name="gender"
+            ngModel
+          />
+          <label for="male">Male</label>&nbsp;&nbsp;
+          <input
+            id="female"
+            type="radio"
+            value="Female"
+            name="gender"
+            ngModel
+          />
+          <label for="female">Female</label>
+          <button
+            type="submit"
+            style="margin-left: 24px;    background-color: teal;"
+            class="btn btn-success"
+          >
+            Add
+          </button>
+        </div>
+      </div>
+      <br />
+    </form>
+  </div>
+</div>
